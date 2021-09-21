@@ -1,0 +1,8 @@
+authentication_token:
+  path: /api/authentication_token
+  methods: ['POST']
+
+export_languages:
+    path: /api/languages/export/{format}.zip
+    controller: App\Controller\ExportLanguage
+    methods: 'GET'
