@@ -19,9 +19,8 @@ class ExportLanguage extends AbstractController
     public function __invoke(string $format, LanguageRepository $languageRepository, ZipBuilder $builder): Response
     {
         $languages = $languageRepository->getLanguagesList();
-
         if (empty($languages)) {
-            $this->createAccessDeniedException('No Languages available');
+            throw $this->createAccessDeniedException('No Languages available');
         }
 
         $fileName = $format.'.zip';
