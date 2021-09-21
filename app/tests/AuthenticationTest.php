@@ -13,12 +13,20 @@ class AuthenticationTest extends ApiTestCase
 {
     use ReloadDatabaseTrait;
 
+    public function testApi(): void
+    {
+        $client = static::createClient();
+        $client->request('GET', '/api');
+        $this->assertResponseIsSuccessful();
+    }
+
     public function testLogin(): void
     {
         $client = static::createClient();
 
         $user = (new User())
             ->setEmail('reader_test@example.com')
+            ->addRole('ROLE_USER')
             ->addRole('ROLE_READER')
             ->setPlainPassword('reader')
         ;
