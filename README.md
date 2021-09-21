@@ -1,3 +1,80 @@
+CI checks: 
+
+[![PHPStan + Psalm + Doctrine validation](https://github.com/juliopecorino/assignment-php/actions/workflows/php_analysis.yml/badge.svg)](https://github.com/juliopecorino/assignment-php/actions/workflows/php_analysis.yml) 
+
+Coverage:
+[![codecov](https://codecov.io/gh/juliopecorino/assignment-php/branch/master/graph/badge.svg?token=2HSAL6CXTJ)](https://codecov.io/gh/juliopecorino/assignment-php)
+
+
+## Build the container:
+
+ ```
+docker-compose up -d
+ ```
+ 
+## App Setup:
+ ```
+docker-compose exec php bash -c "php composer.phar update"
+docker-compose exec php bash -c "php bin/console cache:clear"
+docker-compose exec php bash -c "php bin/console assets:install"
+docker-compose exec php bash -c "php bin/console lexik:jwt:generate-keypair"
+
+docker-compose exec php bash -c "php bin/console doctrine:database:drop --force"
+docker-compose exec php bash -c "php bin/console doctrine:database:create"
+ ```
+## Tests:
+ ```
+docker-compose exec php bin/phpunit
+ ```
+ 
+## Access:
+
+Visit http://127.0.0.1:80/api to see the API documentation.
+
+You can ask for a token: to the URL `/api/authentication_token`
+
+Read + Write access:
+```
+login: admin@example.com
+pass: admin
+```
+
+Reader access:
+```
+login: reader@example.com
+pass: reader
+```
+
+Example:
+
+ ```
+ curl -X 'POST' \
+'http://127.0.0.1:80/api/authentication_token' \
+-H 'accept: application/json' \
+-H 'Authorization: Bearer dsds' \
+-H 'Content-Type: application/json' \
+-d '{
+"email": "admin@example.com",
+"password": "admin"
+}'
+ ```
+ 
+This will return a token that will be later use to access the API using `Bearer SECRET_TOKEN`
+ ```
+{
+    "token": "SECRET_TOKEN"
+}
+ ```
+ 
+You can also use the UI to ask the token click in `Try out` then `Execute`:
+
+![login](https://user-images.githubusercontent.com/90846983/134195123-804c8631-95a0-41db-9997-627aece72998.png)
+
+Once you have the token then later use the `Authorize` button:
+
+![auth](https://user-images.githubusercontent.com/90846983/134195294-fef9a896-693e-4bdf-b90b-2d65c564973f.png)
+
+
 # Lokalise PHP homework
 Hello and welcome!
 
@@ -5,7 +82,8 @@ Your task is to create a simple REST API for a mini Translation Management Syste
 
 **Please read the description carefully.**
 
-## Description
+## Description!
+
 The goal of our little TMS is to allow multiple different `Translation` texts in different `Languages` to be linked to a single `Key`. For example, you can have a `Key` with the name `main.title` with `Hello world` and `Hallo Welt` translations for English and German respectively.
 
 In order to perform requests to the API, an authentication token must be provided. A token can have either `read` or `read/write` access.
