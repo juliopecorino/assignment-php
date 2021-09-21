@@ -1,0 +1,9 @@
+App\Entity\User:
+  user_1:
+    email: 'admin@example.com'
+    plainPassword: 'admin'
+    roles: '[ROLE_ADMIN]'
+  user_2:
+    email: 'reader@example.com'
+    plainPassword: 'reader'
+    roles: '[ROLE_READER]'

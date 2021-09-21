@@ -1,0 +1,34 @@
+App\Entity\Translation:
+  translation1:
+    text: 'Hello'
+    key: '@keyHello'
+    language: '@languageEnglish'
+  translation2:
+    text: 'Hola'
+    key: '@keyHello'
+    language: '@languageSpanish'
+  translation3:
+    text: 'Bonjour'
+    key: '@keyHello'
+    language: '@languageFrench'
+  translation4:
+    text: 'Buon giorno'
+    key: '@keyHello'
+    language: '@languageItalian'
+  translation5:
+    text: 'Здраво'
+    key: '@keyHello'
+    language: '@languagePolish'
+
+  translation6:
+    text: 'Welcome!'
+    key: '@keyWelcome'
+    language: '@languageEnglish'
+  translation7:
+    text: 'Bienvenido!'
+    key: '@keyWelcome'
+    language: '@languageSpanish'
+  translation8:
+    text: 'Bienvenu!'
+    key: '@keyWelcome'
+    language: '@languageFrench'

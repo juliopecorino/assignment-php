@@ -1,0 +1,26 @@
+App\Entity\Language:
+  languageEnglish:
+    name: 'English'
+    isocode: 'en'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  languageFrench:
+    name: 'French'
+    isocode: 'fr_FR'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  languagePolish:
+    name: 'Polish'
+    isocode: 'pl_PL'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  languageSpanish:
+    name: 'Spanish'
+    isocode: 'es'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'
+  languageItalian:
+    name: 'Italian'
+    isocode: 'it'
+    createdAt: '<dateTime()>'
+    updatedAt: '<dateTime()>'

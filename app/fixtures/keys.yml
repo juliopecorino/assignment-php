@@ -1,0 +1,7 @@
+App\Entity\Key:
+  keyWelcome:
+    name: 'main.welcome'
+  keyHello:
+    name: 'main.hello'
+  keyCountry:
+    name: 'main.country'
