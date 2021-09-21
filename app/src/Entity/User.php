@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Entity;
 
+use ApiPlatform\Core\Annotation\ApiResource;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -16,6 +17,30 @@ use Symfony\Component\Validator\Constraints as Assert;
  *     name="user",
  * )
  */
+#[ApiResource(
+    attributes: [
+        'security' => "is_granted('ROLE_ADMIN')",
+    ],
+    collectionOperations: [
+        'get' => [
+            'security' => "is_granted('ROLE_ADMIN')",
+        ],
+        'post' => [
+            'security' => "is_granted('ROLE_ADMIN')",
+        ],
+    ],
+    itemOperations: [
+        'get' => [
+            'method' => 'get',
+        ],
+    ],
+    normalizationContext: [
+        'groups' => ['user:read'],
+    ],
+    denormalizationContext: [
+        'groups' => ['user:write'],
+    ],
+)]
 class User implements PasswordAuthenticatedUserInterface, UserInterface
 {
     public const ROLE_DEFAULT = 'ROLE_USER';
@@ -25,17 +50,17 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
      * @ORM\Id
      * @ORM\GeneratedValue
      */
+    #[Groups(['user:read'])]
     protected ?int $id = null;
 
     /**
      * @ORM\Column(name="email", type="string", length=100, unique=true)
      */
+    #[Groups(['user:read', 'user:write'])]
     #[Assert\NotBlank]
     protected string $email;
 
-    /**
-     * @Groups({"user:write"})
-     */
+    #[Groups(['user:write'])]
     protected ?string $plainPassword = null;
 
     /**
@@ -50,11 +75,16 @@ class User implements PasswordAuthenticatedUserInterface, UserInterface
      *
      * @var mixed[]|string[]
      */
-    //#[Groups(['user:read', 'user:write'])]
+    #[Groups(['user:read', 'user:write'])]
     protected array $roles = [];
 
     public function __construct()
     {
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
     }
 
     public function getEmail(): string
