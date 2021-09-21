@@ -7,6 +7,7 @@ namespace App\Tests;
 use App\Entity\Key;
 use App\Entity\Language;
 use App\Entity\Translation;
+use Doctrine\Common\Collections\ArrayCollection;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 class KeyTest extends AbstractApiTestCase
@@ -269,6 +270,16 @@ class KeyTest extends AbstractApiTestCase
             ->setLanguage($language)
             ->setText('great!!')
         ;
+
+        $this->getEntityManager()->persist($translation);
+        $this->getEntityManager()->flush();
+        $this->assertSame($translation->getLanguage()->getIsoCode(), 'es');
+
+        $collection = new ArrayCollection();
+        $collection->add($translation);
+        $key->setTranslations($collection);
+
+        $this->assertSame(1, $key->getTranslations()->count());
     }
 
     public function testUpdateTranslation(): void
