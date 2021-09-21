@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Exporter\ZipBuilder;
 use App\Repository\LanguageRepository;
+use const PHP_SAPI;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\StreamedResponse;
@@ -18,19 +19,25 @@ class ExportLanguage extends AbstractController
 {
     public function __invoke(string $format, LanguageRepository $languageRepository, ZipBuilder $builder): Response
     {
+        if (!$this->isGranted('ROLE_READER')) {
+            throw $this->createAccessDeniedException();
+        }
+
         $languages = $languageRepository->getLanguagesList();
         if (empty($languages)) {
             throw $this->createAccessDeniedException('No Languages available');
         }
 
         $fileName = $format.'.zip';
-
-        return new StreamedResponse(function () use ($fileName, $format, $languages, $builder): void {
+        $response = new StreamedResponse(function () use ($fileName, $format, $languages, $builder): void {
             $options = new Archive();
-            $options->setContentType('application/x-zip');
-            $options->setContentDisposition("attachment; filename={$fileName}");
+            if (PHP_SAPI !== 'cli') {
+                $options->setSendHttpHeaders(true);
+            }
             $zip = new ZipStream($fileName, $options);
             $builder->build($zip, $format, $languages);
         });
+
+        return $response->send();
     }
 }

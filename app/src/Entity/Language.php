@@ -31,7 +31,6 @@ use Symfony\Component\Validator\Constraints as Assert;
         'export' => [
             'method' => 'GET',
             'pagination_enabled' => false,
-            //'path' => '/languages/export/{format}.zip',
             'route_name' => 'export_languages',
             'openapi_context' => [
                 'parameters' => [

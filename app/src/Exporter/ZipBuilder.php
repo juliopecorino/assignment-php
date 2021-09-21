@@ -14,7 +14,7 @@ class ZipBuilder
 
     public function build(ZipStream $zip, string $format, array $languages): void
     {
-        if (! \in_array($format, $this->formats, true)) {
+        if (!\in_array($format, $this->formats, true)) {
             throw new Exception(sprintf('Format %s not available', $format));
         }
 

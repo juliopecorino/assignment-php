@@ -89,14 +89,26 @@ class LanguageTest extends AbstractApiTestCase
         $this->assertSame('Hola', $list['es']['main.hello']);
     }
 
+    public function testExportNoAuth(): void
+    {
+        $this->createClient()->request('GET', '/api/languages/export/json.zip');
+        $this->assertResponseStatusCodeSame(401);
+    }
+
     public function testExportJson(): void
     {
+        $this->createClientAdmin()->request('GET', '/api/languages/export/json.zip');
+        $this->assertResponseIsSuccessful();
+
         $this->createClientReader()->request('GET', '/api/languages/export/json.zip');
         $this->assertResponseIsSuccessful();
     }
 
     public function testExportYaml(): void
     {
+        $this->createClientAdmin()->request('GET', '/api/languages/export/yaml.zip');
+        $this->assertResponseIsSuccessful();
+
         $this->createClientReader()->request('GET', '/api/languages/export/yaml.zip');
         $this->assertResponseIsSuccessful();
     }
