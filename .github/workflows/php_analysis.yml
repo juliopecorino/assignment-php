@@ -48,6 +48,8 @@ jobs:
 
             - name: The PHP Security Checker
               uses: symfonycorp/security-checker-action@v2
+              with:
+                  lock: app/composer.lock
 
             - name: Psalm
               id: psalm
