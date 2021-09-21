@@ -48,31 +48,34 @@ pass: reader
 Example:
 
  ```
- curl -X 'POST' \
-'http://127.0.0.1:80/api/authentication_token' \
--H 'accept: application/json' \
--H 'Authorization: Bearer dsds' \
--H 'Content-Type: application/json' \
--d '{
-"email": "admin@example.com",
-"password": "admin"
+curl -X 'POST' \
+  'http://127.0.0.1:80/api/authentication_token' \
+  -H 'accept: application/json' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "email": "admin@example.com",
+  "password": "admin"
 }'
  ```
  
-This will return a token that will be later use to access the API using `Bearer SECRET_TOKEN`
+This will return a token that will be later use to access the API using `Bearer MYTOKEN`
  ```
 {
-    "token": "SECRET_TOKEN"
+    "token": "MYTOKEN"
 }
  ```
  
-You can also use the UI to ask the token click in `Try out` then `Execute`:
+You can also use the UI to ask for the token. Click in `Try it out` then `Execute`:
 
 ![login](https://user-images.githubusercontent.com/90846983/134195123-804c8631-95a0-41db-9997-627aece72998.png)
 
-Once you have the token then later use the `Authorize` button:
+Once you have the token, you can use it by clicking in the `Authorize` button:
 
 ![auth](https://user-images.githubusercontent.com/90846983/134195294-fef9a896-693e-4bdf-b90b-2d65c564973f.png)
+
+And add the token like this: `Bearer MYTOKEN`
+
+![token](https://user-images.githubusercontent.com/90846983/134197465-399c3595-38ed-4872-997e-a6ed5b08d0a5.png)
 
 
 # Lokalise PHP homework
