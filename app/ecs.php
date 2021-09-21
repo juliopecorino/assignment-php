@@ -64,6 +64,8 @@ return static function (ContainerConfigurator $containerConfigurator): void {
     $parameters->set(
         Option::SKIP,
         [
+            \PhpCsFixer\Fixer\Operator\UnaryOperatorSpacesFixer::class,
+            \PhpCsFixer\Fixer\Operator\NotOperatorWithSuccessorSpaceFixer::class,
             PhpCsFixer\Fixer\PhpUnit\PhpUnitInternalClassFixer::class,
             PhpCsFixer\Fixer\PhpUnit\PhpUnitTestClassRequiresCoversFixer::class,
         ]
