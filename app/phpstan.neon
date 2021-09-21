@@ -9,6 +9,7 @@ parameters:
 		objectManagerLoader: %rootDir%/../../../tests/phpstan/doctrine-orm-bootstrap.php
 	excludes_analyse:
 		- tests/*
+		- src/DataPersister/UserDataPersister.php
 	checkGenericClassInNonGenericObjectType: false
 	checkMissingIterableValueType: false
 includes:
