@@ -281,35 +281,4 @@ class KeyTest extends AbstractApiTestCase
 
         $this->assertSame(1, $key->getTranslations()->count());
     }
-
-    public function testUpdateTranslation(): void
-    {
-        /*$languageIri = $this->findIriBy(Translation::class, [
-            'name' => 'Polish',
-        ]);
-
-        $languageIri = $this->findIriBy(Language::class, [
-            'name' => 'Polish',
-        ]);
-
-        $keyIri = $this->findIriBy(Key::class, [
-            'name' => 'main.welcome',
-        ]);
-
-        $client = $this->createClientAdmin();
-        $response = $client->request(
-            'PUT',
-            $iri,
-            [
-                'json' => [
-                    'text' => 'new text modified!',
-                ],
-            ]
-        );
-
-        $key = $this->getEntityManager()->getRepository(Key::class)->findOneBy([
-            'name' => 'main.welcome',
-        ]);
-        $this->assertNotNull($key);*/
-    }
 }

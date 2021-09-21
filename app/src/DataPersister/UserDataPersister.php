@@ -27,7 +27,7 @@ class UserDataPersister implements DataPersisterInterface
     {
         if ($data->getPlainPassword()) {
             $data->setPassword(
-                $this->hasher->hashPassword($data, $data->getPlainPassword())
+                $this->hasher->hashPassword($data, (string) $data->getPlainPassword())
             );
             $data->eraseCredentials();
             $this->entityManager->persist($data);

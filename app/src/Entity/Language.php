@@ -45,7 +45,6 @@ use Symfony\Component\Validator\Constraints as Assert;
                     ],
                 ],
             ],
-
             'controller' => ExportLanguage::class,
         ],
     ],

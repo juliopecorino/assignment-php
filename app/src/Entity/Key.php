@@ -6,6 +6,7 @@ namespace App\Entity;
 
 use ApiPlatform\Core\Annotation\ApiResource;
 use ApiPlatform\Core\Annotation\ApiSubresource;
+use App\Controller\UpdateTranslation;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -42,6 +43,36 @@ use Symfony\Component\Validator\Constraints as Assert;
         'put' => [
             'security' => "is_granted('ROLE_ADMIN')",
         ],
+        'update_translation' => [
+            'method' => 'PUT',
+            'route_name' => 'update_translation',
+            'openapi_context' => [
+                'parameters' => [
+                    [
+                        'name' => 'id',
+                        'required' => true,
+                        'in' => 'path',
+                        'enum' => ['json', 'yaml'],
+                        'description' => 'Key id',
+                    ],
+                    [
+                        'name' => 'isoCode',
+                        'required' => true,
+                        'in' => 'path',
+                        'enum' => ['json', 'yaml'],
+                        'description' => 'iso code',
+                    ],
+                    [
+                        'name' => 'text',
+                        'required' => true,
+                        'in' => 'query',
+                        'description' => 'Text to update',
+                    ],
+                ],
+            ],
+            'controller' => UpdateTranslation::class,
+        ],
+
         'delete' => [
             'security' => "is_granted('ROLE_ADMIN')",
         ],
