@@ -20,12 +20,13 @@ class UpdateTranslation extends AbstractController
     /**
      * @Route("/api/keys/{id}/{isoCode}", name="update_translation")
      */
-    public function __invoke(int $id, string $isoCode, Request $request, EntityManagerInterface $entityManager): Response
+    public function __invoke(int $id, string $isoCode, Request $request): Response
     {
         if (!$this->isGranted('ROLE_READER')) {
             throw $this->createAccessDeniedException();
         }
 
+        $entityManager = $this->getDoctrine()->getManager();
         $key = $entityManager->getRepository(Key::class)->find($id);
         if (null === $key) {
             return new Response('Key not found', 500);
@@ -40,6 +41,7 @@ class UpdateTranslation extends AbstractController
             'key' => $key,
             'language' => $language,
         ]);
+
         if (null !== $translation) {
             $text = (string) $request->get('text');
             $translation->setText($text);
