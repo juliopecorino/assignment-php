@@ -78,6 +78,25 @@ And add the token like this: `Bearer MYTOKEN`
 ![token](https://user-images.githubusercontent.com/90846983/134197465-399c3595-38ed-4872-997e-a6ed5b08d0a5.png)
 
 
+## Create a user
+
+You can use the API to create a new user, there are currently 2 roles `ROLE_ADMIN` (reade + write access) and `ROLE_READER`.
+
+ ```
+curl -X 'POST' \
+  'http://127.0.0.1:80/api/users' \
+  -H 'accept: application/ld+json' \
+  -H 'Authorization: Bearer MY_TOKEN' \
+  -H 'Content-Type: application/ld+json' \
+  -d '{
+  "email": "example@example.com",
+  "plainPassword": "my-secret-pass",
+  "roles": [
+    "ROLE_USER"
+  ]
+}'
+ ```
+ 
 # Lokalise PHP homework
 Hello and welcome!
 
