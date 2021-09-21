@@ -95,7 +95,7 @@ class Language
     /**
      * Translations from this language.
      *
-     * @ORM\OneToMany(targetEntity="App\Entity\Translation", mappedBy="language")
+     * @ORM\OneToMany(targetEntity="App\Entity\Translation", mappedBy="language", cascade={"remove"})
      */
     protected Collection $translations;
 

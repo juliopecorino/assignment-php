@@ -6,6 +6,7 @@ namespace App\Tests;
 
 use App\Entity\Language;
 use App\Repository\LanguageRepository;
+use DateTime;
 use Hautelook\AliceBundle\PhpUnit\RefreshDatabaseTrait;
 
 class LanguageTest extends AbstractApiTestCase
@@ -57,7 +58,7 @@ class LanguageTest extends AbstractApiTestCase
             ->setName('Russian')
             ->setIsoCode('ru')
             ->setLtr(true)
-            ->setCreatedAt(new \DateTime())
+            ->setCreatedAt(new DateTime())
         ;
         $this->getEntityManager()->persist($language);
         $this->getEntityManager()->flush();
@@ -107,5 +108,20 @@ class LanguageTest extends AbstractApiTestCase
 
         $this->createClientReader()->request('GET', '/api/languages/export/aaa');
         $this->assertResponseStatusCodeSame(404);
+    }
+
+    public function testExportNoLanguages(): void
+    {
+        // Test clean languages.
+        $repo = $this->getContainer()->get(LanguageRepository::class);
+        $languages = $repo->findAll();
+        foreach ($languages as $language) {
+            $repo->remove($language);
+        }
+        $languages = $repo->findAll();
+        $this->assertSame(0, \count($languages));
+
+        $this->createClientReader()->request('GET', '/api/languages/export/yaml.zip');
+        $this->assertResponseStatusCodeSame(403);
     }
 }

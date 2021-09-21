@@ -15,6 +15,12 @@ class LanguageRepository extends ServiceEntityRepository
         parent::__construct($registry, Language::class);
     }
 
+    public function remove(Language $language): void
+    {
+        $this->getEntityManager()->remove($language);
+        $this->getEntityManager()->flush();
+    }
+
     public function getLanguagesList(): array
     {
         /** @var Language[] $languages */

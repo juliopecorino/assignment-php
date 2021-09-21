@@ -250,6 +250,27 @@ class KeyTest extends AbstractApiTestCase
         );
     }
 
+    public function testGetTranslations(): void
+    {
+        $repo = $this->getEntityManager()->getRepository(Language::class);
+        $language = $repo->findOneBy([
+            'isoCode' => 'es',
+        ]);
+
+        $key = (new Key())
+            ->setName('key_test')
+        ;
+        $this->getEntityManager()->persist($key);
+        $this->getEntityManager()->flush();
+        $this->assertSame(0, $key->getTranslations()->count());
+
+        $translation = (new Translation())
+            ->setKey($key)
+            ->setLanguage($language)
+            ->setText('great!!')
+        ;
+    }
+
     public function testUpdateTranslation(): void
     {
         /*$languageIri = $this->findIriBy(Translation::class, [
