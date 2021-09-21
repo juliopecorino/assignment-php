@@ -28,6 +28,7 @@ class UpdateTranslation extends AbstractController
 
         $entityManager = $this->getDoctrine()->getManager();
         $key = $entityManager->getRepository(Key::class)->find($id);
+
         if (null === $key) {
             return new Response('Key not found', 500);
         }
@@ -36,7 +37,7 @@ class UpdateTranslation extends AbstractController
             'isoCode' => $isoCode,
         ]);
 
-        /** @var Translation $translation */
+        /** @var Translation|null $translation */
         $translation = $entityManager->getRepository(Translation::class)->findOneBy([
             'key' => $key,
             'language' => $language,
