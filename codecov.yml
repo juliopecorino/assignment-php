@@ -1,2 +1,3 @@
 ignore:
   - "app/src/Kernel.php"
+  - "app/src/OpenApi/JwtDecorator.php"
