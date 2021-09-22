@@ -14,16 +14,21 @@ docker-compose up -d
  
 ## App Setup:
  ```
-docker-compose exec php bash -c "php composer.phar update"
+docker-compose exec php bash -c "php composer.phar update --no-interaction"
 docker-compose exec php bash -c "php bin/console cache:clear"
 docker-compose exec php bash -c "php bin/console assets:install"
 docker-compose exec php bash -c "php bin/console lexik:jwt:generate-keypair"
-
-docker-compose exec php bash -c "php bin/console doctrine:database:drop --force"
 docker-compose exec php bash -c "php bin/console doctrine:database:create"
+docker-compose exec php bash -c "php bin/console doctrine:schema:create"
+docker-compose exec php bash -c "php bin/console hautelook:fixtures:load --no-interaction"
  ```
+
 ## Tests:
  ```
+docker-compose exec php bash -c "php bin/console --env=test doctrine:database:create"
+docker-compose exec php bash -c "php bin/console --env=test doctrine:schema:create"
+docker-compose exec php bash -c "php bin/console --env=test hautelook:fixtures:load --no-interaction"
+
 docker-compose exec php bin/phpunit
  ```
  
@@ -96,6 +101,26 @@ curl -X 'POST' \
   ]
 }'
  ```
+
+
+### API Functionality
+- API token authentication:
+`/api/authentication_token`
+
+- List available languages
+`/api/languages`
+
+- Manage `Keys`
+    - List `/api/keys`
+    - Retrieve `/api/keys/{id}` GET
+    - Create  `/api/keys`  POST
+    - Rename  `/api/keys/{id}`  PUT
+    - Delete  `/api/keys/{id}`  DELETE
+- Manage `Key` `Translations`
+    - Ability to update `Translation` value for any language for a given key
+ `/api/keys/{id}/{isoCode}` key id / iso code from the language
+- Export all `Keys` and their `Translations`
+    - `/api/languages/export/{format}.zip` (yaml or json format)
  
 # Lokalise PHP homework
 Hello and welcome!
