@@ -121,6 +121,10 @@ curl -X 'POST' \
  `/api/keys/{id}/{isoCode}` key id / iso code from the language
 - Export all `Keys` and their `Translations`
     - `/api/languages/export/{format}.zip` (yaml or json format)
+
+Database dump:
+
+https://github.com/juliopecorino/assignment-php/blob/master/dump.sql
  
 # Lokalise PHP homework
 Hello and welcome!
